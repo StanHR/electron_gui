@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>dtoxd : The Clean Digital Experience</title>
+        <link rel="stylesheet" type="text/css" href="css/pretty-checkbox.css">
+        <link rel="stylesheet" type="text/css" href="css/loading-bar.css">
+        <link rel="stylesheet" type="text/css" href="css/dtoxd.css">
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            #side-panel{
+                float:left;
+                width:25%;
+                height:100vh;
+                background-color: black;
+            }
+            #main-panel{
+                width:75%;
+                height:100vh;
+                background-color: white;
+                text-align: center;
+                background: url('dtoxd_logo.svg') no-repeat;
+                background-position: center center;
+                top:0px;
+                overflow: hidden;
+            }
+            html, body{
+                margin:0;
+                padding:0;
+                top:0px;
+                left:0px;
+                overflow-y: hidden;
+            }
+            #background-image{
+                height: 90%;
+                width: 90%;
+            }
+            .menu{
+                padding-top: 25%;
+                color: white;
+                width:100%;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .menu-item{
+                width:90%;
+                padding-left:10%;
+                padding-top:7%;
+                padding-bottom:7%;
+                cursor:pointer
+            }
+            .title-bar{
+                width:100%;
+                background-color:black;
+                height: 32px;
+                -webkit-app-region: drag;
+            }
+            .title{
+                width:100%;
+                height:100%;
+                text-align: center;
+                line-height: 32px;
+                vertical-align: middle;
+                color: white;
+            }
+            .action-button{
+                background-color: black;
+                color:white;
+                -webkit-app-region:no-drag;
+                -webkit-user-select: none;
+                cursor: default;
+                line-height: 32px;
+                text-align: center;
+                font-weight: bold;
+                font-size:1.5em;
+                margin:0px;
+                padding:0px;
+                transition: all ease-in-out 0.2s;
+            }
+            .buttons{
+                position: fixed;
+                right:0px;
+                top:0px
+            }
+            .buttons div{
+                width: 50px;
+                height: 32px;
+                float: right;
+            }
+            .title-bar div{
+                display:inline-block; 
+            }
+            #minimize-button:hover{
+                background-color: white;
+                color:black;
+                font-size: 1.75em;
+            }
+            #close-button:hover{
+                background-color: red;
+                color: white;
+                font-size: 1.75em;
+
+            }
+            .menu-icon{
+                padding-right:5%;
+                text-align: center;
+                vertical-align: middle;
+                height: 100%;
+            }
+            .menu-icon-black{
+                padding-right:5%;
+                text-align: center;
+                vertical-align: middle;
+                position: absolute;
+                display: none;
+                left:20px;
+            }
+            #scan-now-content, #schedule-scan-content, #real-time-content, #settings-content, #directory-watcher-content{
+                display: none;
+            }
+            /* #top-filler{
+                height:24%;
+            }
+            #middle-filler{
+                height:48%;
+            }
+            #bottom-filler{
+                height:24%;
+            } */
+            #middle-filler{
+                width:100%;
+                height:100%;
+            }
+            .content-card{
+                width:82%;
+                padding-left:50px;
+                padding-right:50px;
+                padding-top: 35px;
+                padding-bottom: 35px;
+                text-align: left;
+                background-color: white;
+                box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            }
+            .content-option{
+                padding-top:15px;
+                padding-left:30px;
+            }
+            .helper-text{
+                padding-top:20px;
+                padding-left:10px;
+            }
+            .button {
+                background-color: rgb(0,221,128); /* Green */
+                border: none;
+                border-radius: 10px;
+                color: white;
+                padding: 10px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                font-weight: bold;
+                -webkit-transition-duration: 0.2s; /* Safari */
+                transition-duration: 0.2s;
+            }
+            .button:hover {
+                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+            .scan-option{
+                padding-top:20px;
+                padding-left:10px
+            }
+            .content-card-parent{
+                text-align: center;
+                margin-left:14%;
+                margin-right:14%;
+                width:72%;
+                height: auto;
+                margin-top:9%;
+            }
+            .slider-container{
+                display:none;
+            }
+            .slider-container div{
+                display: inline-block;
+            }
+            .slider {
+                -webkit-appearance: none;
+                appearance: none;
+                height: 5px;
+                background: #d3d3d3;
+                outline: none;
+                opacity: 0.8;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+            }
+            .slider:hover {
+                opacity: 1;
+            }
+            .slider:disabled{
+                opacity: 0.45;
+            }
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 25px;
+                height: 25px;
+                border-radius: 25px;
+                background: #00dd80;
+                cursor: pointer;
+            }
+            .slider::-moz-range-thumb {
+                width: 25px; 
+                height: 25px;
+                border-radius: 25px;
+                background: #00dd80;
+                cursor: pointer;
+            }
+            .ldBar-label{
+                width:35px;
+                position: absolute;
+                top:35%;
+                right:43%;
+                color:white;
+                font-weight: bold;
+                font-size:1.2em
+            }
+            .progress-bar div{
+                display:inline-block
+            }
+            .progress-bar{
+                margin-top:10px;
+                position: relative;
+                display: none;
+            }
+            .icon-box{
+                padding:10px;
+                box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border-radius: 10px;
+            }
+            #home-scan-now{
+                text-align: center;
+                padding-top:5%
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="title-bar">
+                <div class='title'>dtoxd: The Clean Digital Experience
+                    <div class="buttons">
+                        <div class="action-button" id="close-button">&times;</div>
+                        <div class="action-button" id="maximize-button" style="color:#C6CDC7">+</div>
+                        <div class="action-button" id="minimize-button">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column" id="side-panel">
+                    <div class="menu">
+                        <div class="menu-item" id="home" onclick="activateTab(this.id)">
+                            <img class="menu-icon" id="home-icon-white" src="img/home.svg" style="height: 25px;">
+                            <img class="menu-icon-black" id="home-icon-black" src="img/home_black.svg">
+                            Home
+                            </div>
+                        <div class="menu-item" id="scan-now" onclick="activateTab(this.id)">
+                            <img class="menu-icon" id="scan-icon-white" src="img/Scan_white.png">
+                            <img class="menu-icon-black" id="scan-now-icon-black" src="img/Scan.png">
+                            Scan Now
+                        </div>
+                        <div class="menu-item" id="schedule-scan" onclick="activateTab(this.id)">
+                            <img class="menu-icon" id="schedule-icon-white" src="img/Schedule_white.png">
+                            <img class="menu-icon-black" id="schedule-scan-icon-black" src="img/schedule.png">
+                            Schedule Scan
+                        </div>
+                        <div class="menu-item" id="real-time" onclick="activateTab(this.id)">
+                            <img class="menu-icon" id="realtime-icon-white" src="img/Real_time_whte.png">
+                            <img class="menu-icon-black" id="real-time-icon-black" src="img/Realtime.png">
+                            Real-Time
+                        </div>
+                        <div class="menu-item" id="directory-watcher" onclick="activateTab(this.id)">
+                            <img class="menu-icon" id="directory-watcher-white" src="img/directory_white.svg" style="width:28px">
+                            <img class="menu-icon-black" id="directory-watcher-icon-black" src="img/directory.svg" style="width:30px">
+                            Directory-Watcher
+                            </div>
+                        <div class="menu-item" id="settings" onclick="activateTab(this.id)">
+                            <img class="menu-icon" id="settings-icon-white" src="img/SettingsWhite.png">
+                            <img class="menu-icon-black" id="settings-icon-black" src="img/Setting.svg">
+                            Settings
+                        </div>
+                    </div>
+                </div>
+                <div class="column" id="main-panel">
+                    <!-- <div class="filler-dev" id="top-filler"></div> -->
+                    <div class="filler-dev" id="middle-filler">
+                        <div class="content-card-parent" id="home-parent">
+                            <div class="content-card" id="home-content">
+                                <div id="system-state" style="text-align: center;">
+                                    <img src="img/shield_green.svg"> 
+                                </div>
+                                <div class="main-instruction" style="font-size: 1.25em; font-weight: bold;text-align: center; padding-top: 15px;">
+                                    <span>You're Protected Against Explicit Content</span>
+                                </div>
+                                <div class="helper-text" style="padding-top: 10px; padding-left:0px; text-align: center;">
+                                    We won't share your information with anyone. All processing happens and remains on your own machine.
+                                </div>
+                                <div class="main-instruction" style="font-size: 1em; font-weight: bold;text-align: center; padding-top: 15px;">
+                                    <span>Last scanned on 23rd November, 2019 at 2:35 PM</span>
+                                </div>
+                                <div class="icon-container" style="margin-top:25px; text-align: center; padding-left:15%;padding-right:15%">
+                                    <div class="icon-box" style="float:left">
+                                        <img id="scan-green" src="img/scan_green.svg">
+                                    </div>
+                                    <div class="icon-box" style="display:inline-block">
+                                        <img id="directory-green" src="img/directory_green.svg">
+                                    </div>
+                                    <div class="icon-box" style="float:right">
+                                        <img id="real-time-green" src="img/real_time_green.svg">
+                                    </div>
+                                </div>
+                                <div id="home-scan-now">
+                                    <button class="button" id="scan-now-button" onclick="activateTab('scan-now')">Scan Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="content-card-parent" id="scan-now-parent">
+                            <div class='content-card' id="scan-now-content">
+                                <div class="main-instruction" style="font-size: 1.25em; font-weight: bold;">
+                                    <span>Choose your preferences.</span>
+                                </div>
+                                <div class="helper-text">
+                                    Select the type of content that you would like to scan.
+                                </div>
+                                <div class="content-option">
+                                    <div class="pretty p-default p-curve p-pulse">
+                                        <input type="checkbox" id="image-scan-checkbox">
+                                        <div class="state p-success-o">
+                                            <i class="icon mdi mdi-check"></i>
+                                            <label>&nbsp;&nbsp;Images</label>
+                                        </div>
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="pretty p-default p-curve p-pulse">
+                                        <input type="checkbox" id="video-scan-checkbox" onclick="videoCheck()">
+                                        <div class="state p-success-o">
+                                            <i class="icon mdi mdi-check"></i>
+                                            <label>&nbsp;&nbsp;Videos</label>
+                                        </div>
+                                    </div>
+                                    <div class="slider-container" id="slider-container">
+                                        <div class="helper-text" style="padding-left:0px;padding-right:30px">
+                                            Scan Precision
+                                        </div>
+                                        <input type="range" min="1" max="5" value="1" class="slider" id="precisionSlider">
+                                    </div>
+                                </div>
+                                <div class="scan-option" id="scan-options">
+                                    <button class="button" id="quick" onclick="scan_trigger(this.id)">Quick Scan</button>
+                                    <button class="button" id="deep" onclick="scan_trigger(this.id)">Deep Scan</button>
+                                </div>
+                                <div class="progress-bar" id="progress-bar">
+                                    <div data-preset="energy" data-fill="data:ldbar/res,gradient(45,2,#00dd80,#11f797,#86f78a)" class="ldBar" data-aspect-ratio="none" data-fill-background-extrude="0" data-value="0" data-bbox="10 5 80 10" style="width:85%;height:60px;"></div>
+                                    <div>    
+                                        <button class="button" id="stop" onclick="scan_trigger(this.id)" style="background-color:#cf0a0a;position:absolute;top:8px" >Stop</button>
+                                    </div>
+                                </div>
+                                <div id="snackbar">Please select the type of content (images or videos) to scan !</div>
+                            </div>
+                        </div>
+
+
+                        <div class="content-card-parent" id="schedule-scan-parent">
+                            <div class='content-card' id="schedule-scan-content">
+                                <div class="main-instruction" style="font-size: 1.25em; font-weight: bold;">
+                                    <span>Choose your preferences.</span>
+                                </div>
+                                <div class="helper-text">
+                                    <div class="dropdown" id="scan-type-dropdown">
+                                        Scan Type :
+                                        <select>
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="fortnightly">Fortnightly</option>
+                                            <option value="monthly">Monthly</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="content-card-parent" id="real-time-parent">
+                            <div class='content-card' id="real-time-content">
+                                Real-time Section
+                            </div>
+                        </div>
+
+
+                        <div class="content-card-parent" id="directory-watcher-parent">
+                            <div class="content-card" id="directory-watcher-content">
+                                Directory Watcher
+                            </div>
+                        </div>
+
+
+                        <div class="content-card-parent" id="settings-parent">
+                            <div class='content-card' id="settings-content">
+                                Settings Section
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- <div class="filler-dev" id="bottom-filler"></div> -->
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/titlebarOptionHandler.js"></script>
+        <script type="text/javascript" src="js/loading-bar.js"></script>
+        <script type="text/javascript" src="js/commonActions.js"></script>
+    </body>
+</html>

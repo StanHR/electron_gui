@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48.943" height="47.382" viewBox="0 0 48.943 47.382">
+  <g id="directory" transform="translate(-262 2470)">
+    <g id="folder_1_" data-name="folder (1)" transform="translate(262 -2470)">
+      <path id="Path_72" data-name="Path 72" d="M48.692,26.318a1.038,1.038,0,0,0-.788-.362H1.038A1.038,1.038,0,0,0,.011,27.15L4.029,52.034a1.033,1.033,0,0,0,1.026.881H43.886a1.034,1.034,0,0,0,1.027-.883L48.93,27.153A1.036,1.036,0,0,0,48.692,26.318Z" transform="translate(0 -5.532)" fill="#00dd80"/>
+      <path id="Path_73" data-name="Path 73" d="M7.268,12.393H43.212v7.352H46.48V6.484A1.446,1.446,0,0,0,45.035,5.04H19.984l-2.03-3.383a1.45,1.45,0,0,0-1.238-.7H5.444A1.447,1.447,0,0,0,4,2.4V19.744H7.268Z" transform="translate(-0.732 -0.955)" fill="#00dd80"/>
+    </g>
+    <path id="Subtraction_1" data-name="Subtraction 1" d="M9.348,18.7A9.349,9.349,0,1,1,18.7,9.348,9.359,9.359,0,0,1,9.348,18.7ZM8.215,11.6v2.2h2.28V11.6Zm-.03-8.82.27,7.5H10.24l.27-7.5Z" transform="translate(292.117 -2443.505)" fill="#fff"/>
+  </g>
+</svg>
